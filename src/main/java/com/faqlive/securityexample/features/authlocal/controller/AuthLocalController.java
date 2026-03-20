@@ -1,6 +1,8 @@
 package com.faqlive.securityexample.features.authlocal.controller;
 
+import com.faqlive.securityexample.features.authlocal.dto.AuthResponse;
 import com.faqlive.securityexample.features.authlocal.dto.LoginRequest;
+import com.faqlive.securityexample.features.authlocal.dto.RegisterRequest;
 import com.faqlive.securityexample.features.authlocal.service.AuthLocalService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -19,8 +21,13 @@ public class AuthLocalController {
     this.authLocalService = authLocalService;
   }
 
+  @PostMapping("/register")
+  public ResponseEntity<AuthResponse> register(@Valid @RequestBody RegisterRequest request) {
+    return ResponseEntity.ok(authLocalService.register(request));
+  }
+
   @PostMapping("/login")
-  public ResponseEntity<String> login(@Valid @RequestBody LoginRequest request) {
+  public ResponseEntity<AuthResponse> login(@Valid @RequestBody LoginRequest request) {
     return ResponseEntity.ok(authLocalService.login(request));
   }
 }
